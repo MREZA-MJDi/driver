@@ -206,7 +206,7 @@
                                     <h3 title="${name}">${name}</h3>
                                     <p>${size} · Video</p>
                                 </div>
-                                <button class="more-button" type="button" data-action="delete">•••</button>
+                                <button class="delete-action" type="button" data-action="delete" aria-label="Delete file" title="Delete file"><span aria-hidden="true">⌫</span><span>Delete</span></button>
                             </div>
                             <div class="file-meta">
                                 <span>${date}</span>
