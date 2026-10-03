@@ -457,6 +457,46 @@ button {
     font-size: 10px;
 }
 
+.upload-status {
+    width: min(520px, 100%);
+    display: none;
+    margin-top: 9px;
+}
+
+.upload-status.visible {
+    display: block;
+}
+
+.upload-status-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.upload-status.error .upload-status-head {
+    color: var(--danger);
+}
+
+.upload-progress {
+    height: 5px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.upload-progress-bar {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent), #a184ff);
+    transition: width 180ms ease;
+}
+
 /* Toolbar */
 
 .toolbar {
