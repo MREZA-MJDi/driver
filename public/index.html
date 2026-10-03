@@ -49,14 +49,14 @@
         <div class="storage-card">
             <div class="storage-head">
                 <span>Storage</span>
-                <strong>10.2 GB / 40 GB</strong>
+                <strong id="storageUsed">0 B used</strong>
             </div>
 
             <div class="storage-track">
-                <span style="width: 25.5%"></span>
+                <span id="storageProgress" style="width: 0%"></span>
             </div>
 
-            <small>29.8 GB available</small>
+            <small id="storageAvailable">40 GB available</small>
         </div>
     </aside>
 
@@ -122,8 +122,19 @@
                 </button>
 
                 <small>
-                    Large files will be uploaded securely and resumably.
+                    Large files are uploaded in resumable 8 MB chunks.
                 </small>
+
+                <div class="upload-status" id="uploadStatus">
+                    <div class="upload-status-head">
+                        <span class="upload-status-text">Preparing upload…</span>
+                        <span>Resumable</span>
+                    </div>
+                    <div class="upload-progress">
+                        <span class="upload-progress-bar"></span>
+                    </div>
+                    <button class="upload-cancel" id="uploadCancel" type="button" hidden>Cancel upload</button>
+                </div>
 
             </section>
 
@@ -157,167 +168,8 @@
 
             </div>
 
-            <section class="files-grid" id="filesGrid">
+            <section class="files-grid" id="filesGrid"></section>
 
-                <article
-                    class="file-card"
-                    data-name="training-video-01.mp4"
-                    data-type="video"
-                >
-                    <div class="file-preview video-preview">
-                        <div class="preview-gradient"></div>
-
-                        <div class="video-symbol">▶</div>
-
-                        <span class="file-type">MP4</span>
-
-                        <button class="preview-action" type="button">
-                            Open
-                        </button>
-                    </div>
-
-                    <div class="file-info">
-                        <div class="file-title-row">
-                            <div>
-                                <h3>training-video-01.mp4</h3>
-                                <p>5.1 GB · Video</p>
-                            </div>
-
-                            <button class="more-button" type="button">•••</button>
-                        </div>
-
-                        <div class="file-meta">
-                            <span>Today</span>
-
-                            <div class="file-actions">
-                                <button type="button" class="small-action download-action">
-                                    ↓
-                                </button>
-
-                                <button type="button" class="small-action share-action">
-                                    ↗
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="file-card"
-                    data-name="training-video-02.mp4"
-                    data-type="video"
-                >
-                    <div class="file-preview video-preview video-two">
-                        <div class="preview-gradient"></div>
-
-                        <div class="video-symbol">▶</div>
-
-                        <span class="file-type">MP4</span>
-
-                        <button class="preview-action" type="button">
-                            Open
-                        </button>
-                    </div>
-
-                    <div class="file-info">
-                        <div class="file-title-row">
-                            <div>
-                                <h3>training-video-02.mp4</h3>
-                                <p>4.8 GB · Video</p>
-                            </div>
-
-                            <button class="more-button" type="button">•••</button>
-                        </div>
-
-                        <div class="file-meta">
-                            <span>Yesterday</span>
-
-                            <div class="file-actions">
-                                <button type="button" class="small-action download-action">
-                                    ↓
-                                </button>
-
-                                <button type="button" class="small-action share-action">
-                                    ↗
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="file-card"
-                    data-name="project-notes.pdf"
-                    data-type="document"
-                >
-                    <div class="file-preview document-preview">
-                        <div class="document-icon">PDF</div>
-                        <span class="file-type">PDF</span>
-                    </div>
-
-                    <div class="file-info">
-                        <div class="file-title-row">
-                            <div>
-                                <h3>project-notes.pdf</h3>
-                                <p>2.4 MB · Document</p>
-                            </div>
-
-                            <button class="more-button" type="button">•••</button>
-                        </div>
-
-                        <div class="file-meta">
-                            <span>Sep 30</span>
-
-                            <div class="file-actions">
-                                <button type="button" class="small-action download-action">
-                                    ↓
-                                </button>
-
-                                <button type="button" class="small-action share-action">
-                                    ↗
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="file-card"
-                    data-name="brand-assets.zip"
-                    data-type="archive"
-                >
-                    <div class="file-preview archive-preview">
-                        <div class="archive-icon">ZIP</div>
-                        <span class="file-type">ZIP</span>
-                    </div>
-
-                    <div class="file-info">
-                        <div class="file-title-row">
-                            <div>
-                                <h3>brand-assets.zip</h3>
-                                <p>184 MB · Archive</p>
-                            </div>
-
-                            <button class="more-button" type="button">•••</button>
-                        </div>
-
-                        <div class="file-meta">
-                            <span>Sep 28</span>
-
-                            <div class="file-actions">
-                                <button type="button" class="small-action download-action">
-                                    ↓
-                                </button>
-
-                                <button type="button" class="small-action share-action">
-                                    ↗
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-            </section>
 
             <div class="empty-state" id="emptyState">
                 <div>⌕</div>

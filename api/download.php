@@ -197,10 +197,14 @@ try {
         'Accept-Ranges: bytes'
     );
 
+    $inline = filter_var($_GET['inline'] ?? false, FILTER_VALIDATE_BOOLEAN);
+
+    $fallbackName = preg_replace('/[^A-Za-z0-9._-]/', '_', $downloadName) ?: 'download';
+
     header(
-        'Content-Disposition: attachment; filename="'
-        . rawurlencode($downloadName)
-        . '"'
+        'Content-Disposition: '
+        . ($inline ? 'inline' : 'attachment')
+        . '; filename="' . $fallbackName . '"; filename*=UTF-8\'\'' . rawurlencode($downloadName)
     );
 
     header(
