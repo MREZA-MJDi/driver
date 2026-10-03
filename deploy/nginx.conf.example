@@ -13,13 +13,13 @@ server {
         try_files $uri $uri/ /index.html;
     }
 
-    location ~ ^/api/.*\\.php$ {
+    location ~ ^/api/.*\.php$ {
         include snippets/fastcgi-php.conf;
         fastcgi_pass unix:/run/php/php8.5-fpm.sock;
         fastcgi_read_timeout 3600s;
     }
 
-    location ~ \\.php$ {
+    location ~ \.php$ {
         return 404;
     }
 
