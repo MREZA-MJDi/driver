@@ -3,3 +3,4 @@
 
 /storage/temp/*
 !/storage/temp/.gitkeep
+/api/.env.php
