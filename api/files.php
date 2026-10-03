@@ -269,6 +269,11 @@ try {
             }
 
             $chunkSize = (int) $chunk['size'];
+            $expectedChunks = (int) ceil(((int) $file['size']) / UPLOAD_CHUNK_SIZE);
+
+            if ($index >= $expectedChunks) {
+                respond(['success' => false, 'message' => 'Chunk index is out of range.'], 422);
+            }
 
             if ($chunkSize < 1 || $chunkSize > MAX_CHUNK_SIZE) {
                 respond(['success' => false, 'message' => 'Invalid chunk size.'], 422);
