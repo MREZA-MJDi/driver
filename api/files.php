@@ -129,10 +129,8 @@ try {
                 id,
                 name,
                 original_name,
-                path,
                 mime_type,
                 size,
-                disk,
                 status,
                 created_at,
                 updated_at
