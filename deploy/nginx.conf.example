@@ -13,7 +13,7 @@ server {
         try_files $uri $uri/ /public/index.html;
     }
 
-    location ~ ^/api/(files|share|download)\\.php$ {
+    location ~ ^/api/(files|share|download)\.php$ {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /var/www/personal-drive$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT /var/www/personal-drive;
@@ -22,11 +22,11 @@ server {
         fastcgi_send_timeout 3600s;
     }
 
-    location ~ ^/api/.*\\.php$ {
+    location ~ ^/api/.*\.php$ {
         return 404;
     }
 
-    location ~ \\.php$ {
+    location ~ \.php$ {
         return 404;
     }
 
