@@ -2,24 +2,31 @@ server {
     listen 8090;
     server_name _;
 
-    root /var/www/personal-drive/public;
-    index index.html;
+    root /var/www/personal-drive;
+    index public/index.html;
 
     client_max_body_size 18m;
     client_body_timeout 3600s;
     send_timeout 3600s;
 
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files $uri $uri/ /public/index.html;
     }
 
-    location ~ ^/api/.*\.php$ {
-        include snippets/fastcgi-php.conf;
+    location ~ ^/api/(files|share|download)\\.php$ {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/personal-drive$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT /var/www/personal-drive;
         fastcgi_pass unix:/run/php/php8.5-fpm.sock;
         fastcgi_read_timeout 3600s;
+        fastcgi_send_timeout 3600s;
     }
 
-    location ~ \.php$ {
+    location ~ ^/api/.*\\.php$ {
+        return 404;
+    }
+
+    location ~ \\.php$ {
         return 404;
     }
 
