@@ -1,0 +1,30 @@
+server {
+    listen 8090;
+    server_name _;
+
+    root /var/www/personal-drive/public;
+    index index.html;
+
+    client_max_body_size 18m;
+    client_body_timeout 3600s;
+    send_timeout 3600s;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~ ^/api/.*\\.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.5-fpm.sock;
+        fastcgi_read_timeout 3600s;
+    }
+
+    location ~ \\.php$ {
+        return 404;
+    }
+
+    location ^~ /storage/ {
+        deny all;
+        return 404;
+    }
+}
