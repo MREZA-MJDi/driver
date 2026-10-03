@@ -9,6 +9,8 @@ header('Content-Type: application/json; charset=utf-8');
 const MAX_FILE_SIZE = 10 * 1024 * 1024 * 1024; // 10 GB
 const MAX_CHUNK_SIZE = 16 * 1024 * 1024;       // 16 MB
 const MIN_CHUNK_SIZE = 1 * 1024 * 1024;        // 1 MB
+const UPLOAD_CHUNK_SIZE = 8 * 1024 * 1024;      // 8 MB
+const STORAGE_LIMIT = 40 * 1024 * 1024 * 1024; // 40 GB
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
@@ -160,7 +162,7 @@ try {
             'files' => $files,
             'storage' => [
                 'used' => $used,
-                'limit' => 40 * 1024 * 1024 * 1024,
+                'limit' => STORAGE_LIMIT,
             ],
         ]);
     }
@@ -183,6 +185,21 @@ try {
                     'success' => false,
                     'message' => 'Invalid file size or file is too large.',
                 ], 422);
+            }
+
+            $usageStmt = $pdo->query(
+                'SELECT COALESCE(SUM(size), 0)
+                 FROM files
+                 WHERE status IN ("completed", "uploading")'
+            );
+
+            $used = (int) $usageStmt->fetchColumn();
+
+            if ($used + $size > STORAGE_LIMIT) {
+                respond([
+                    'success' => false,
+                    'message' => 'Storage limit exceeded.',
+                ], 413);
             }
 
             $mime = trim((string) ($_POST['mime_type'] ?? 'application/octet-stream'));
@@ -217,7 +234,7 @@ try {
                     'id' => $id,
                     'name' => $name,
                     'size' => $size,
-                    'chunk_size' => 8 * 1024 * 1024,
+                    'chunk_size' => UPLOAD_CHUNK_SIZE,
                     'status' => 'uploading',
                 ],
             ], 201);
@@ -281,6 +298,7 @@ try {
             if (
                 !$id
                 || $chunkSize === false
+                || $chunkSize !== UPLOAD_CHUNK_SIZE
                 || $chunkSize < MIN_CHUNK_SIZE
                 || $chunkSize > MAX_CHUNK_SIZE
                 || $totalChunks === false
@@ -293,6 +311,12 @@ try {
 
             if ($file['status'] !== 'uploading') {
                 respond(['success' => false, 'message' => 'Upload is already completed.'], 409);
+            }
+
+            $expectedChunks = (int) ceil(((int) $file['size']) / $chunkSize);
+
+            if ($totalChunks !== $expectedChunks) {
+                respond(['success' => false, 'message' => 'Chunk count does not match the file size.'], 422);
             }
 
             $chunkDir = $tempRoot . DIRECTORY_SEPARATOR . (int) $id;
