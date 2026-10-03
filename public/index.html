@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0d12">
+    <title>Personal Drive</title>
+
+    <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-mark">
+                <span></span>
+            </div>
+
+            <div>
+                <strong>Personal Drive</strong>
+                <small>Private storage</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item active" type="button">
+                <span class="nav-icon">⌂</span>
+                <span>My Files</span>
+            </button>
+
+            <button class="nav-item" type="button">
+                <span class="nav-icon">↗</span>
+                <span>Shared</span>
+            </button>
+
+            <button class="nav-item" type="button">
+                <span class="nav-icon">★</span>
+                <span>Starred</span>
+            </button>
+
+            <button class="nav-item" type="button">
+                <span class="nav-icon">⌫</span>
+                <span>Trash</span>
+            </button>
+        </nav>
+
+        <div class="storage-card">
+            <div class="storage-head">
+                <span>Storage</span>
+                <strong>10.2 GB / 40 GB</strong>
+            </div>
+
+            <div class="storage-track">
+                <span style="width: 25.5%"></span>
+            </div>
+
+            <small>29.8 GB available</small>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">
+                ☰
+            </button>
+
+            <div class="breadcrumb">
+                <span>My Files</span>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="icon-button" type="button" title="Notifications">
+                    ♢
+                </button>
+
+                <div class="user-avatar">M</div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">YOUR SPACE</p>
+                    <h1>My Files</h1>
+                    <p class="subtitle">
+                        Keep your videos and important files in one place.
+                    </p>
+                </div>
+
+                <button class="upload-button" id="uploadButton" type="button">
+                    <span>＋</span>
+                    Upload files
+                </button>
+
+                <input
+                    id="fileInput"
+                    type="file"
+                    multiple
+                    hidden
+                >
+            </div>
+
+            <section class="upload-zone" id="uploadZone">
+
+                <div class="upload-icon">
+                    ↑
+                </div>
+
+                <div>
+                    <h2>Drop files here</h2>
+                    <p>
+                        Drag & drop your files here, or choose them from your device.
+                    </p>
+                </div>
+
+                <button class="secondary-button" id="browseButton" type="button">
+                    Browse files
+                </button>
+
+                <small>
+                    Large files will be uploaded securely and resumably.
+                </small>
+
+            </section>
+
+            <div class="toolbar">
+
+                <div class="toolbar-left">
+                    <h2>Recent files</h2>
+                    <span class="file-count" id="fileCount">4 files</span>
+                </div>
+
+                <div class="toolbar-right">
+
+                    <label class="search-box">
+                        <span>⌕</span>
+                        <input
+                            id="searchInput"
+                            type="search"
+                            placeholder="Search files..."
+                        >
+                    </label>
+
+                    <button class="view-button active" type="button" data-view="grid">
+                        ▦
+                    </button>
+
+                    <button class="view-button" type="button" data-view="list">
+                        ☷
+                    </button>
+
+                </div>
+
+            </div>
+
+            <section class="files-grid" id="filesGrid">
+
+                <article
+                    class="file-card"
+                    data-name="training-video-01.mp4"
+                    data-type="video"
+                >
+                    <div class="file-preview video-preview">
+                        <div class="preview-gradient"></div>
+
+                        <div class="video-symbol">▶</div>
+
+                        <span class="file-type">MP4</span>
+
+                        <button class="preview-action" type="button">
+                            Open
+                        </button>
+                    </div>
+
+                    <div class="file-info">
+                        <div class="file-title-row">
+                            <div>
+                                <h3>training-video-01.mp4</h3>
+                                <p>5.1 GB · Video</p>
+                            </div>
+
+                            <button class="more-button" type="button">•••</button>
+                        </div>
+
+                        <div class="file-meta">
+                            <span>Today</span>
+
+                            <div class="file-actions">
+                                <button type="button" class="small-action download-action">
+                                    ↓
+                                </button>
+
+                                <button type="button" class="small-action share-action">
+                                    ↗
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="file-card"
+                    data-name="training-video-02.mp4"
+                    data-type="video"
+                >
+                    <div class="file-preview video-preview video-two">
+                        <div class="preview-gradient"></div>
+
+                        <div class="video-symbol">▶</div>
+
+                        <span class="file-type">MP4</span>
+
+                        <button class="preview-action" type="button">
+                            Open
+                        </button>
+                    </div>
+
+                    <div class="file-info">
+                        <div class="file-title-row">
+                            <div>
+                                <h3>training-video-02.mp4</h3>
+                                <p>4.8 GB · Video</p>
+                            </div>
+
+                            <button class="more-button" type="button">•••</button>
+                        </div>
+
+                        <div class="file-meta">
+                            <span>Yesterday</span>
+
+                            <div class="file-actions">
+                                <button type="button" class="small-action download-action">
+                                    ↓
+                                </button>
+
+                                <button type="button" class="small-action share-action">
+                                    ↗
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="file-card"
+                    data-name="project-notes.pdf"
+                    data-type="document"
+                >
+                    <div class="file-preview document-preview">
+                        <div class="document-icon">PDF</div>
+                        <span class="file-type">PDF</span>
+                    </div>
+
+                    <div class="file-info">
+                        <div class="file-title-row">
+                            <div>
+                                <h3>project-notes.pdf</h3>
+                                <p>2.4 MB · Document</p>
+                            </div>
+
+                            <button class="more-button" type="button">•••</button>
+                        </div>
+
+                        <div class="file-meta">
+                            <span>Sep 30</span>
+
+                            <div class="file-actions">
+                                <button type="button" class="small-action download-action">
+                                    ↓
+                                </button>
+
+                                <button type="button" class="small-action share-action">
+                                    ↗
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="file-card"
+                    data-name="brand-assets.zip"
+                    data-type="archive"
+                >
+                    <div class="file-preview archive-preview">
+                        <div class="archive-icon">ZIP</div>
+                        <span class="file-type">ZIP</span>
+                    </div>
+
+                    <div class="file-info">
+                        <div class="file-title-row">
+                            <div>
+                                <h3>brand-assets.zip</h3>
+                                <p>184 MB · Archive</p>
+                            </div>
+
+                            <button class="more-button" type="button">•••</button>
+                        </div>
+
+                        <div class="file-meta">
+                            <span>Sep 28</span>
+
+                            <div class="file-actions">
+                                <button type="button" class="small-action download-action">
+                                    ↓
+                                </button>
+
+                                <button type="button" class="small-action share-action">
+                                    ↗
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+
+            <div class="empty-state" id="emptyState">
+                <div>⌕</div>
+                <h3>No files found</h3>
+                <p>Try another search.</p>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="modal-backdrop" id="shareModal">
+
+    <div class="modal">
+
+        <button class="modal-close" id="modalClose" type="button">
+            ×
+        </button>
+
+        <div class="modal-icon">↗</div>
+
+        <p class="eyebrow">SHARE FILE</p>
+
+        <h2>Share this file</h2>
+
+        <p class="modal-file-name" id="modalFileName">
+            training-video-01.mp4
+        </p>
+
+        <div class="share-link">
+            <input
+                id="shareLink"
+                type="text"
+                readonly
+                value="https://drive.example/s/8xK92LmP"
+            >
+
+            <button id="copyLink" type="button">
+                Copy
+            </button>
+        </div>
+
+        <p class="modal-note">
+            Anyone with this link will be able to access the shared file.
+        </p>
+
+    </div>
+
+</div>
+
+<script src="../assets/js/app.js"></script>
+
+</body>
+</html>
