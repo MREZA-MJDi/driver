@@ -35,6 +35,7 @@
     const toastContainer = document.getElementById("toastContainer");
 
     let files = [];
+    let activeUpload = null;
 
     function showToast(message) {
         const toast = document.createElement("div");
@@ -323,6 +324,26 @@
         }
     }
 
+    async function cancelUpload() {
+        const upload = activeUpload;
+        if (!upload || !upload.uploadId) return;
+
+        upload.cancelled = true;
+        upload.controller.abort();
+
+        try {
+            await request(API + "?id=" + encodeURIComponent(upload.uploadId), { method: "DELETE" });
+        } catch (error) {
+            console.warn("Could not clean cancelled upload:", error);
+        }
+
+        removeResume(upload.file);
+        activeUpload = null;
+        setUploadStatus("");
+        showToast("Upload cancelled.");
+        await loadFiles();
+    }
+
     async function uploadFile(file) {
         if (file.size < 1 || file.size > MAX_FILE_SIZE) {
             showToast(`${file.name}: maximum size is 10 GB.`);
@@ -333,6 +354,15 @@
         const resumeMap = getResumeMap();
         let uploadId = Number(resumeMap[key] || 0);
         let received = new Set();
+
+        const controller = new AbortController();
+        activeUpload = { file, uploadId, controller, cancelled: false };
+
+        const cancelButton = document.getElementById("uploadCancel");
+        if (cancelButton) {
+            cancelButton.hidden = false;
+            cancelButton.disabled = false;
+        }
 
         try {
             if (uploadId) {
@@ -364,6 +394,7 @@
 
                 uploadId = Number(init.upload.id);
                 saveResume(file, uploadId);
+                activeUpload.uploadId = uploadId;
             }
 
             const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
@@ -390,6 +421,7 @@
                         await request(API, {
                             method: "POST",
                             body: form,
+                            signal: controller.signal,
                         });
                         success = true;
                     } catch (error) {
@@ -413,9 +445,11 @@
             await request(API, {
                 method: "POST",
                 body: completeForm,
+                signal: controller.signal,
             });
 
             removeResume(file);
+            activeUpload = null;
             setUploadStatus(`${file.name} uploaded successfully.`, 100);
             showToast(`${file.name} uploaded successfully.`);
 
@@ -423,7 +457,12 @@
 
             window.setTimeout(() => setUploadStatus(""), 1800);
         } catch (error) {
+            if (controller.signal.aborted || activeUpload?.cancelled) {
+                return;
+            }
+
             saveResume(file, uploadId);
+            activeUpload = null;
             setUploadStatus(
                 `${file.name}: ${error.message}. You can retry safely.`,
                 null,
@@ -441,6 +480,11 @@
         for (const file of selected) {
             await uploadFile(file);
         }
+    }
+
+    const uploadCancelButton = document.getElementById("uploadCancel");
+    if (uploadCancelButton) {
+        uploadCancelButton.addEventListener("click", cancelUpload);
     }
 
     uploadButton.addEventListener("click", () => fileInput.click());
