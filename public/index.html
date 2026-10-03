@@ -24,25 +24,21 @@
             </div>
         </div>
 
-        <nav class="sidebar-nav">
-            <button class="nav-item active" type="button">
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <nav class="sidebar-nav" aria-label="Drive navigation">
+            <button class="nav-item active" type="button" data-nav-target="files-section">
                 <span class="nav-icon">⌂</span>
                 <span>My Files</span>
             </button>
 
-            <button class="nav-item" type="button">
-                <span class="nav-icon">↗</span>
-                <span>Shared</span>
+            <button class="nav-item" type="button" data-nav-target="uploadZone">
+                <span class="nav-icon">↑</span>
+                <span>Upload files</span>
             </button>
 
-            <button class="nav-item" type="button">
-                <span class="nav-icon">★</span>
-                <span>Starred</span>
-            </button>
-
-            <button class="nav-item" type="button">
-                <span class="nav-icon">⌫</span>
-                <span>Trash</span>
+            <button class="nav-item" type="button" data-nav-target="recent-files">
+                <span class="nav-icon">◷</span>
+                <span>Recent files</span>
             </button>
         </nav>
 
@@ -80,7 +76,7 @@
             </div>
         </header>
 
-        <section class="content">
+        <section class="content" id="files-section">
 
             <div class="page-heading">
                 <div>
@@ -138,7 +134,7 @@
 
             </section>
 
-            <div class="toolbar">
+            <div class="toolbar" id="recent-files">
 
                 <div class="toolbar-left">
                     <h2>Recent files</h2>
