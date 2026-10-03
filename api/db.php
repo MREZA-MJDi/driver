@@ -2,13 +2,25 @@
 
 declare(strict_types=1);
 
-$host = getenv('PERSONAL_DRIVE_DB_HOST') ?: '127.0.0.1';
-$db = getenv('PERSONAL_DRIVE_DB_NAME') ?: 'personal_drive';
-$user = getenv('PERSONAL_DRIVE_DB_USER') ?: 'root';
-$pass = getenv('PERSONAL_DRIVE_DB_PASS') ?: '';
-$charset = 'utf8mb4';
+$config = [
+    'host' => getenv('PERSONAL_DRIVE_DB_HOST') ?: '127.0.0.1',
+    'name' => getenv('PERSONAL_DRIVE_DB_NAME') ?: 'personal_drive',
+    'user' => getenv('PERSONAL_DRIVE_DB_USER') ?: 'root',
+    'pass' => getenv('PERSONAL_DRIVE_DB_PASS') ?: '',
+];
 
-$dsn = "mysql:host={$host};dbname={$db};charset={$charset}";
+$localConfig = __DIR__ . '/.env.php';
+
+if (is_file($localConfig)) {
+    $local = require $localConfig;
+
+    if (is_array($local)) {
+        $config = array_replace($config, $local);
+    }
+}
+
+$charset = 'utf8mb4';
+$dsn = "mysql:host={$config['host']};dbname={$config['name']};charset={$charset}";
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -17,7 +29,12 @@ $options = [
 ];
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = new PDO(
+        $dsn,
+        $config['user'],
+        $config['pass'],
+        $options
+    );
 } catch (PDOException $e) {
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
