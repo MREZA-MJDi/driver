@@ -2,6 +2,9 @@
 
 Tiamir Drive is a lightweight PHP/MySQL file workspace for internal data exchange. The current application includes file listing and uploads, resumable chunk upload support, downloads, share links, and browser-based file preview flows. Its backend is plain PHP/PDO rather than Laravel.
 
+## Dedicated dashboard and file workspace
+Tiamir Drive has its own dedicated dashboard/workspace for internal file exchange, centered on uploads, file browsing, recent files, downloads, and sharing. It is a standalone PHP application rather than a Laravel project.
+
 ## Stack and requirements
 - PHP 8.2+ with PDO MySQL enabled (match PHP-FPM and CLI versions)
 - MySQL/MariaDB
