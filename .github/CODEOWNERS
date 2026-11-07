@@ -1,0 +1,8 @@
+# Default code owner for repository changes.
+# GitHub must have required code-owner reviews enabled for this to block merges.
+* @MREZA-MJDi
+
+# Keep the ownership and contributor instructions under the same review owner.
+/AGENTS.md @MREZA-MJDi
+/AUTHORSHIP.md @MREZA-MJDi
+/.github/CODEOWNERS @MREZA-MJDi
